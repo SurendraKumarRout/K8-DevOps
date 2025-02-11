@@ -1,0 +1,9 @@
+{
+  "auths": {
+    "kindregistry.azurecr.io": {
+      "username": "kindregistry",
+      "password": "c8of2HGQjx8pTVPLtZ2mKy2eU4nm4lYivuEFmW2gm++ACRBMh1r7",
+      "auth": "a2luZHJlZ2lzdHJ5OmM4b2YySEdRang4cFRWUEx0WjJtS3kyZVU0bm00bFlpdnVFRm1XMmdtKytBQ1JCTWgxcjc="
+    }
+  }
+}

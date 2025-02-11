@@ -1,0 +1,25 @@
+apiVersion: apps/v1 # Defines this as a Kubernetes deployment.
+kind: Deployment # Specifies that we are creating a Deployment resource.
+metadata:
+  name: frontend # The name of the deployment.
+spec:
+  replicas: 2 # Number of frontend pod replicas.
+  selector:
+    matchLabels:
+      app: frontend # Ensures pods with this label are managed by this deployment.
+  template: # Pod template that will be used to create frontend pods.
+    metadata:
+      labels:
+        app: frontend # Label for the pods (used for service selection).
+    spec:
+      containers:
+        - name: frontend # Container name inside the pod.
+          image: kindregistry.azurecr.io/k8-frontend-app:v3 # Image from ACR
+          ports:
+            - containerPort: 80 # The frontend app runs on port 3000.
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://10.96.244.181:5000" # Backend service IP and port
+      imagePullSecrets:
+        - name: acr-secret # ✅ Use this secret to pull images from ACR.
+

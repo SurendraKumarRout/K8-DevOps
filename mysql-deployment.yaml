@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: kindregistry.azurecr.io/k8-mysql:v1  # Your MySQL image in ACR
+        ports:
+        - containerPort: 3306  # MySQL default port
+        env:  # Environment variables for database configuration
+        - name: MYSQL_ROOT_PASSWORD  # Root user password
+          value: "password"  # Matches DB_PASS
+        - name: MYSQL_DATABASE  # Database name to initialize
+          value: "ecommerce"  # Matches DB_NAME
+        - name: MYSQL_USER  # Custom user (Optional)
+          value: "user"  # Matches DB_USER
+        - name: MYSQL_PASSWORD  # Custom user password (Optional)
+          value: "password"  # Matches DB_PASS
+      imagePullSecrets:
+      - name: acr-secret  # ACR secret for image pulling
+

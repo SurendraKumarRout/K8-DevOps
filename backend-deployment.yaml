@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: kindregistry.azurecr.io/k8-backend-app:v1  # Backend image from ACR
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: "k8-mysql"  # Updated service name for MySQL
+        - name: DB_USER
+          value: "user"  # Matches MYSQL_USER in MySQL deployment
+        - name: DB_PASS
+          value: "password"  # Matches MYSQL_PASSWORD in MySQL deployment
+        - name: DB_NAME
+          value: "ecommerce"  # Matches MYSQL_DATABASE in MySQL deployment
+      imagePullSecrets:
+      - name: acr-secret  # Secret for ACR authentication
+
